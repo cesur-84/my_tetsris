@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Claude Code local settings
+.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local env / secrets
+.env
+.env.local
+*.local

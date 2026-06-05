@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classic Tetris</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <section class="panel">
+      <h1>CLASSIC TETRIS</h1>
+      <p class="subtitle">Arrow Keys Move | Up Rotate | Space Hard Drop | P Pause</p>
+
+      <div class="layout">
+        <div class="board-wrap">
+          <canvas id="game" width="300" height="600" aria-label="Tetris game board"></canvas>
+          <div id="overlay" class="overlay">
+            <p id="overlay-text">Connect Supabase First</p>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="auth-box">
+            <h2>Supabase Setup</h2>
+            <form id="supabase-form" class="auth-form">
+              <label for="supabase-url">Project URL</label>
+              <input id="supabase-url" name="supabase-url" type="text" placeholder="https://your-project.supabase.co" required>
+
+              <label for="supabase-key">Publishable Key</label>
+              <input id="supabase-key" name="supabase-key" type="text" placeholder="sb_publishable_xxx" required>
+
+              <button id="save-supabase-button" type="submit">Save Supabase Info</button>
+            </form>
+
+            <p id="supabase-message" class="login-message">Paste your Project URL and Publishable key from Supabase Overview.</p>
+          </div>
+
+          <div class="auth-box">
+            <div class="auth-header">
+              <h2 id="auth-title">Login</h2>
+              <button id="auth-mode-button" type="button" class="small-button">Switch To Sign Up</button>
+            </div>
+            <form id="login-form" class="auth-form">
+              <label for="login-email" id="login-id-label">ID</label>
+              <input id="login-email" name="email" type="text" autocomplete="username" placeholder="admin" required>
+
+              <label for="login-pw">Password</label>
+              <input id="login-pw" name="pw" type="password" autocomplete="current-password" placeholder="password" required>
+
+              <button id="login-button" type="submit">Login</button>
+            </form>
+
+            <p id="login-message" class="login-message">Save Supabase info first. New users can sign up with only ID and password.</p>
+            <div id="user-info" class="user-info hidden">
+              <p><span class="label-inline">Nickname</span> <strong id="user-nickname">-</strong></p>
+              <p><span class="label-inline">Email</span> <strong id="user-id">-</strong></p>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div class="stat-box">
+            <span class="label">Lines</span>
+            <strong id="lines">0</strong>
+          </div>
+          <div class="stat-box">
+            <span class="label">Level</span>
+            <strong id="level">1</strong>
+          </div>
+          <div class="stat-box">
+            <span class="label">Best</span>
+            <strong id="best-score">0</strong>
+          </div>
+
+          <div class="button-group">
+            <button id="start-button" type="button">Start Game</button>
+            <button id="pause-button" type="button">Pause</button>
+            <button id="end-button" type="button">End Game</button>
+            <button id="logout-button" type="button">Logout</button>
+          </div>
+
+          <div class="help">
+            <p>Left / Right: Move</p>
+            <p>Down: Soft Drop</p>
+            <p>Up: Rotate</p>
+            <p>Space: Hard Drop</p>
+            <p>P: Pause</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="game.js"></script>
+</body>
+</html>
