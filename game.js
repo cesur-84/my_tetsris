@@ -118,13 +118,13 @@ async function saveSupabaseConfig(event) {
   const key = supabaseKeyInput.value.trim();
 
   if (!url || !key) {
-    setSupabaseMessage("Project URL and Publishable key are both required.", "error");
+    setSupabaseMessage("프로젝트 URL과 Publishable 키를 모두 입력해야 합니다.", "error");
     return;
   }
 
   localStorage.setItem(SUPABASE_URL_KEY, url);
   localStorage.setItem(SUPABASE_PUBLISHABLE_KEY, key);
-  setSupabaseMessage("Supabase info saved. Trying to connect now.", "success");
+  setSupabaseMessage("Supabase 정보를 저장했습니다. 연결을 시도합니다.", "success");
   initializeSupabaseClient();
   await restoreSupabaseSession();
 }
@@ -140,19 +140,19 @@ function initializeSupabaseClient() {
 
   if (!url || !key || !window.supabase) {
     supabaseClient = null;
-    setSupabaseMessage("Paste your Project URL and Publishable key first.", "");
-    showOverlay("Connect Supabase First");
+    setSupabaseMessage("먼저 프로젝트 URL과 Publishable 키를 붙여넣으세요.", "");
+    showOverlay("먼저 Supabase를 연결하세요");
     updateButtonState();
     return;
   }
 
   try {
     supabaseClient = window.supabase.createClient(url, key);
-    setSupabaseMessage("Supabase is ready.", "success");
+    setSupabaseMessage("Supabase 준비 완료.", "success");
   } catch (error) {
     supabaseClient = null;
-    setSupabaseMessage("Supabase connection setup failed. Check the copied values.", "error");
-    showOverlay("Supabase Setup Error");
+    setSupabaseMessage("Supabase 연결 설정에 실패했습니다. 복사한 값을 확인하세요.", "error");
+    showOverlay("Supabase 설정 오류");
   }
 
   updateButtonState();
@@ -171,20 +171,20 @@ async function restoreSupabaseSession() {
     bestScore = 0;
     updateAuthUI();
     updateStats();
-    showOverlay("Login First");
+    showOverlay("먼저 로그인하세요");
     return;
   }
 
   currentUser = data.session.user;
   await loadProfile();
-  setLoginMessage("Logged in from saved session.", "success");
+  setLoginMessage("저장된 세션으로 로그인했습니다.", "success");
   updateAuthUI();
   hideOverlay();
 }
 
 function startGame() {
   if (!currentUser) {
-    setLoginMessage("Log in first before starting the game.", "error");
+    setLoginMessage("게임을 시작하기 전에 먼저 로그인하세요.", "error");
     return;
   }
 
@@ -481,7 +481,7 @@ function endGame() {
   cancelAnimationFrame(animationId);
   updateStats();
   updateButtonState();
-  showOverlay(`Game Over\nScore: ${score}\nPress Start`);
+  showOverlay(`게임 오버\n점수: ${score}\n시작을 누르세요`);
 }
 
 function togglePause() {
@@ -494,7 +494,7 @@ function togglePause() {
 
   if (gamePaused) {
     cancelAnimationFrame(animationId);
-    showOverlay("Paused");
+    showOverlay("일시정지");
     return;
   }
 
@@ -514,7 +514,7 @@ function endCurrentGame() {
   cancelAnimationFrame(animationId);
   updateStats();
   updateButtonState();
-  showOverlay(`Game Ended\nScore: ${score}\nPress Start`);
+  showOverlay(`게임 종료\n점수: ${score}\n시작을 누르세요`);
 }
 
 function updateButtonState() {
@@ -543,10 +543,10 @@ function toggleAuthMode() {
 }
 
 function updateAuthModeUI() {
-  authTitleElement.textContent = isSignupMode ? "Sign Up" : "Login";
-  loginButton.textContent = isSignupMode ? "Create Account" : "Login";
-  authModeButton.textContent = isSignupMode ? "Switch To Login" : "Switch To Sign Up";
-  loginIdLabel.textContent = "ID";
+  authTitleElement.textContent = isSignupMode ? "회원가입" : "로그인";
+  loginButton.textContent = isSignupMode ? "계정 만들기" : "로그인";
+  authModeButton.textContent = isSignupMode ? "로그인으로 전환" : "회원가입으로 전환";
+  loginIdLabel.textContent = "아이디";
   loginEmailInput.placeholder = isSignupMode ? "newplayer" : "admin";
   loginEmailInput.type = "text";
 }
@@ -555,7 +555,7 @@ async function handleAuthSubmit(event) {
   event.preventDefault();
 
   if (!supabaseClient) {
-    setLoginMessage("Save Supabase info first.", "error");
+    setLoginMessage("먼저 Supabase 정보를 저장하세요.", "error");
     return;
   }
 
@@ -564,7 +564,7 @@ async function handleAuthSubmit(event) {
 
   if (isSignupMode) {
     if (!loginValue) {
-      setLoginMessage("ID is required for sign up.", "error");
+      setLoginMessage("회원가입에는 아이디가 필요합니다.", "error");
       return;
     }
 
@@ -576,12 +576,12 @@ async function handleAuthSubmit(event) {
 }
 
 async function signUp(loginId, password) {
-  setLoginMessage("Creating your account...", "");
+  setLoginMessage("계정을 생성하는 중...", "");
 
   const existingProfile = await findProfileByLoginId(loginId);
   if (existingProfile) {
-    setLoginMessage("That ID is already in use.", "error");
-    showOverlay("Sign Up Failed");
+    setLoginMessage("이미 사용 중인 아이디입니다.", "error");
+    showOverlay("회원가입 실패");
     return;
   }
 
@@ -594,12 +594,12 @@ async function signUp(loginId, password) {
 
   if (error) {
     setLoginMessage(error.message, "error");
-    showOverlay("Sign Up Failed");
+    showOverlay("회원가입 실패");
     return;
   }
 
   if (!data.user) {
-    setLoginMessage("Sign up finished, but no user data came back.", "error");
+    setLoginMessage("회원가입은 완료되었지만 사용자 데이터가 반환되지 않았습니다.", "error");
     return;
   }
 
@@ -610,8 +610,8 @@ async function signUp(loginId, password) {
     updateAuthUI();
     updateStats();
     updateButtonState();
-    setLoginMessage("Account created. If you cannot log in yet, confirm the email first or turn off email confirmation in Supabase Auth settings.", "success");
-    showOverlay("Check Email Settings");
+    setLoginMessage("계정이 생성되었습니다. 아직 로그인할 수 없다면 이메일을 먼저 인증하거나 Supabase Auth 설정에서 이메일 인증을 끄세요.", "success");
+    showOverlay("이메일 설정 확인");
     loginForm.reset();
     isSignupMode = false;
     updateAuthModeUI();
@@ -620,7 +620,7 @@ async function signUp(loginId, password) {
 
   currentUser = data.user;
   await loadProfile();
-  setLoginMessage("Account created. You can start the game now.", "success");
+  setLoginMessage("계정이 생성되었습니다. 이제 게임을 시작할 수 있습니다.", "success");
   updateAuthUI();
   updateStats();
   updateButtonState();
@@ -631,7 +631,7 @@ async function signUp(loginId, password) {
 }
 
 async function login(loginId, password) {
-  setLoginMessage("Logging in...", "");
+  setLoginMessage("로그인 중...", "");
 
   const loginEmail = await resolveLoginEmail(loginId);
 
@@ -641,14 +641,14 @@ async function login(loginId, password) {
   });
 
   if (error) {
-    setLoginMessage("Login failed. Check the ID and password.", "error");
-    showOverlay("Login Failed");
+    setLoginMessage("로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.", "error");
+    showOverlay("로그인 실패");
     return;
   }
 
   currentUser = data.user;
   await loadProfile();
-  setLoginMessage("Login complete. You can start the game now.", "success");
+  setLoginMessage("로그인 완료. 이제 게임을 시작할 수 있습니다.", "success");
   updateAuthUI();
   updateStats();
   updateButtonState();
@@ -676,8 +676,8 @@ async function logout() {
   updateStats();
   updateAuthUI();
   updateButtonState();
-  setLoginMessage("Logged out.", "");
-  showOverlay(supabaseClient ? "Login First" : "Connect Supabase First");
+  setLoginMessage("로그아웃되었습니다.", "");
+  showOverlay(supabaseClient ? "먼저 로그인하세요" : "먼저 Supabase를 연결하세요");
 }
 
 async function upsertProfile(loginId) {
@@ -697,7 +697,7 @@ async function upsertProfile(loginId) {
   const { error } = await supabaseClient.from("profiles").upsert(payload);
 
   if (error) {
-    setLoginMessage(`Profile save failed: ${error.message}`, "error");
+    setLoginMessage(`프로필 저장 실패: ${error.message}`, "error");
   }
 }
 
@@ -717,7 +717,7 @@ async function loadProfile() {
   if (error) {
     currentProfile = null;
     bestScore = 0;
-    setLoginMessage(`Profile load failed: ${error.message}`, "error");
+    setLoginMessage(`프로필 불러오기 실패: ${error.message}`, "error");
     return;
   }
 
@@ -764,7 +764,7 @@ async function findProfileByLoginId(loginId) {
 
   if (error) {
     if (!isMissingRpcError(error)) {
-      console.warn("ID check failed:", error);
+      console.warn("아이디 확인 실패:", error);
     }
 
     return null;

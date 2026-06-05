@@ -3,91 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classic Tetris</title>
+  <title>클래식 테트리스</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="game-shell">
     <section class="panel">
-      <h1>CLASSIC TETRIS</h1>
-      <p class="subtitle">Arrow Keys Move | Up Rotate | Space Hard Drop | P Pause</p>
+      <h1>클래식 테트리스</h1>
+      <p class="subtitle">방향키 이동 | 위쪽 회전 | 스페이스 하드드롭 | P 일시정지</p>
 
       <div class="layout">
         <div class="board-wrap">
-          <canvas id="game" width="300" height="600" aria-label="Tetris game board"></canvas>
+          <canvas id="game" width="300" height="600" aria-label="테트리스 게임판"></canvas>
           <div id="overlay" class="overlay">
-            <p id="overlay-text">Connect Supabase First</p>
+            <p id="overlay-text">먼저 Supabase를 연결하세요</p>
           </div>
         </div>
 
         <aside class="sidebar">
           <div class="auth-box">
-            <h2>Supabase Setup</h2>
+            <h2>Supabase 설정</h2>
             <form id="supabase-form" class="auth-form">
-              <label for="supabase-url">Project URL</label>
+              <label for="supabase-url">프로젝트 URL</label>
               <input id="supabase-url" name="supabase-url" type="text" placeholder="https://your-project.supabase.co" required>
 
-              <label for="supabase-key">Publishable Key</label>
+              <label for="supabase-key">Publishable 키</label>
               <input id="supabase-key" name="supabase-key" type="text" placeholder="sb_publishable_xxx" required>
 
-              <button id="save-supabase-button" type="submit">Save Supabase Info</button>
+              <button id="save-supabase-button" type="submit">Supabase 정보 저장</button>
             </form>
 
-            <p id="supabase-message" class="login-message">Paste your Project URL and Publishable key from Supabase Overview.</p>
+            <p id="supabase-message" class="login-message">Supabase Overview에서 프로젝트 URL과 Publishable 키를 붙여넣으세요.</p>
           </div>
 
           <div class="auth-box">
             <div class="auth-header">
-              <h2 id="auth-title">Login</h2>
-              <button id="auth-mode-button" type="button" class="small-button">Switch To Sign Up</button>
+              <h2 id="auth-title">로그인</h2>
+              <button id="auth-mode-button" type="button" class="small-button">회원가입으로 전환</button>
             </div>
             <form id="login-form" class="auth-form">
-              <label for="login-email" id="login-id-label">ID</label>
+              <label for="login-email" id="login-id-label">아이디</label>
               <input id="login-email" name="email" type="text" autocomplete="username" placeholder="admin" required>
 
-              <label for="login-pw">Password</label>
-              <input id="login-pw" name="pw" type="password" autocomplete="current-password" placeholder="password" required>
+              <label for="login-pw">비밀번호</label>
+              <input id="login-pw" name="pw" type="password" autocomplete="current-password" placeholder="비밀번호" required>
 
-              <button id="login-button" type="submit">Login</button>
+              <button id="login-button" type="submit">로그인</button>
             </form>
 
-            <p id="login-message" class="login-message">Save Supabase info first. New users can sign up with only ID and password.</p>
+            <p id="login-message" class="login-message">먼저 Supabase 정보를 저장하세요. 신규 사용자는 아이디와 비밀번호만으로 가입할 수 있습니다.</p>
             <div id="user-info" class="user-info hidden">
-              <p><span class="label-inline">Nickname</span> <strong id="user-nickname">-</strong></p>
-              <p><span class="label-inline">Email</span> <strong id="user-id">-</strong></p>
+              <p><span class="label-inline">닉네임</span> <strong id="user-nickname">-</strong></p>
+              <p><span class="label-inline">이메일</span> <strong id="user-id">-</strong></p>
             </div>
           </div>
 
           <div class="stat-box">
-            <span class="label">Score</span>
+            <span class="label">점수</span>
             <strong id="score">0</strong>
           </div>
           <div class="stat-box">
-            <span class="label">Lines</span>
+            <span class="label">줄</span>
             <strong id="lines">0</strong>
           </div>
           <div class="stat-box">
-            <span class="label">Level</span>
+            <span class="label">레벨</span>
             <strong id="level">1</strong>
           </div>
           <div class="stat-box">
-            <span class="label">Best</span>
+            <span class="label">최고점수</span>
             <strong id="best-score">0</strong>
           </div>
 
           <div class="button-group">
-            <button id="start-button" type="button">Start Game</button>
-            <button id="pause-button" type="button">Pause</button>
-            <button id="end-button" type="button">End Game</button>
-            <button id="logout-button" type="button">Logout</button>
+            <button id="start-button" type="button">게임 시작</button>
+            <button id="pause-button" type="button">일시정지</button>
+            <button id="end-button" type="button">게임 종료</button>
+            <button id="logout-button" type="button">로그아웃</button>
           </div>
 
           <div class="help">
-            <p>Left / Right: Move</p>
-            <p>Down: Soft Drop</p>
-            <p>Up: Rotate</p>
-            <p>Space: Hard Drop</p>
-            <p>P: Pause</p>
+            <p>← / → : 이동</p>
+            <p>↓ : 소프트 드롭</p>
+            <p>↑ : 회전</p>
+            <p>스페이스 : 하드 드롭</p>
+            <p>P : 일시정지</p>
           </div>
         </aside>
       </div>
